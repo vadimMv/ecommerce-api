@@ -12,10 +12,9 @@ This project requires Docker and Docker Compose to be installed on your system.
 
 ## Quick Start
 
-### Option 1: Docker (Recommended)
+### First clone this repo to your pc
 
 ```bash
-# First clone this repo to your pc
 cd C:\path-to-project\ecommerce-api
 
 
