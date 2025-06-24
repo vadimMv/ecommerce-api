@@ -13,8 +13,7 @@ export class CategoriesService {
     @InjectRepository(Category)
     private categoriesRepository: Repository<Category>,
     private cacheRegistry: CacheKeyRegistry,
-  ) { }
-
+  ) {}
 
   async findAll(): Promise<Category[]> {
     const cacheKey = 'categories:all';
@@ -28,7 +27,6 @@ export class CategoriesService {
       });
       await this.cacheRegistry.set(cacheKey, categories, this.ttl, 'categories');
       this.logger.log('Categories cached');
-
     } else {
       this.logger.log('Cache HIT - Categories from cache');
     }

@@ -1,4 +1,3 @@
-// src/modules/auth/auth.service.ts
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';

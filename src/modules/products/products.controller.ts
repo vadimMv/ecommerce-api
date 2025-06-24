@@ -1,4 +1,3 @@
-// src/modules/products/products.controller.ts
 import { Controller, Get, Post, Body, Param, Query, UseGuards, ParseIntPipe } from '@nestjs/common';
 import {
   ApiTags,

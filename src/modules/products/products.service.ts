@@ -21,7 +21,7 @@ export class ProductsService {
     private productsRepository: Repository<Product>,
     private cacheRegistry: CacheKeyRegistry,
     private categoriesService: CategoriesService,
-  ) { }
+  ) {}
 
   async findAll(options: PaginationOptions = {}): Promise<PaginatedResult<Product>> {
     const { page = 1, limit = 10 } = options;
@@ -50,12 +50,7 @@ export class ProductsService {
         hasPrev: page > 1,
       };
 
-      await this.cacheRegistry.set(
-        cacheKey,
-        result,
-        this.ttl,
-        'products:all'
-      );
+      await this.cacheRegistry.set(cacheKey, result, this.ttl, 'products:all');
       this.logger.log('All products cached');
     } else {
       this.logger.log('Cache HIT - All products from cache');
@@ -64,8 +59,10 @@ export class ProductsService {
     return result;
   }
 
-
-  async findByCategory(categoryId: number, options: PaginationOptions = {}): Promise<PaginatedResult<Product>> {
+  async findByCategory(
+    categoryId: number,
+    options: PaginationOptions = {},
+  ): Promise<PaginatedResult<Product>> {
     const { page = 1, limit = 10 } = options;
     const cacheKey = `products:category:${categoryId}:page:${page}:limit:${limit}`;
 
@@ -96,12 +93,7 @@ export class ProductsService {
         hasPrev: page > 1,
       };
 
-      await this.cacheRegistry.set(
-        cacheKey,
-        result,
-        this.ttl,
-        `products:category:${categoryId}`
-      );
+      await this.cacheRegistry.set(cacheKey, result, this.ttl, `products:category:${categoryId}`);
       this.logger.log(`Products cached for category ${categoryId}`);
     } else {
       this.logger.log(`Cache HIT - Products for category ${categoryId} from cache`);
@@ -153,7 +145,7 @@ export class ProductsService {
 
     await Promise.all([
       this.cacheRegistry.clearNamespace(`products:category:${product.categoryId}`),
-      this.cacheRegistry.clearNamespace('products:all')
+      this.cacheRegistry.clearNamespace('products:all'),
     ]);
     this.logger.log('Product caches invalidated after creation');
 

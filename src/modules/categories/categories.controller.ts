@@ -1,4 +1,3 @@
-// src/modules/categories/categories.controller.ts
 import { Controller, Get, Post, Body, Param, UseGuards, ParseIntPipe } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
 import { CategoriesService } from './categories.service';

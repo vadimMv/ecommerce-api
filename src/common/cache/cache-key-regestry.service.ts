@@ -5,16 +5,13 @@ import { Cache } from 'cache-manager';
 @Injectable()
 export class CacheKeyRegistry {
   private keyMap = new Map<string, Set<string>>();
-  
-  constructor(
-    @Inject(CACHE_MANAGER) private cacheManager: Cache,
-  ) {}
+
+  constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) {}
 
   // Register a cache key under a namespace
   async set(key: string, value: any, ttl?: number, namespace?: string): Promise<void> {
-    
     await this.cacheManager.set(key, value, ttl);
-    
+
     // Track the key
     if (namespace) {
       if (!this.keyMap.has(namespace)) {
@@ -28,10 +25,9 @@ export class CacheKeyRegistry {
     return this.cacheManager.get<T>(key);
   }
 
-
   async del(key: string): Promise<void> {
     await this.cacheManager.del(key);
-   
+
     for (const [namespace, keys] of this.keyMap.entries()) {
       if (keys.has(key)) {
         keys.delete(key);
@@ -45,9 +41,7 @@ export class CacheKeyRegistry {
       return;
     }
 
-    await Promise.all(
-      Array.from(keys).map(key => this.cacheManager.del(key))
-    );
+    await Promise.all(Array.from(keys).map((key) => this.cacheManager.del(key)));
     this.keyMap.delete(namespace);
   }
 }

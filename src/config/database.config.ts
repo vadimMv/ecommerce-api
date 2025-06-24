@@ -20,7 +20,7 @@ export class DatabaseConfig implements TypeOrmOptionsFactory {
       database: this.configService.get('DB_DATABASE', 'EcommerceDB'),
       entities: [__dirname + '/../**/*.entity{.ts,.js}'],
       synchronize: true,
-      logging:false,
+      logging: false,
       options: {
         encrypt: false,
         trustServerCertificate: true,

@@ -1,4 +1,3 @@
-// src/database/data-source.ts
 import { DataSource } from 'typeorm';
 import { ConfigService } from '@nestjs/config';
 import { User } from './entities/user.entity';
